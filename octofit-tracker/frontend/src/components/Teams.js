@@ -38,38 +38,69 @@ const Teams = () => {
     }
   };
 
-  if (loading) return <div className="container mt-4"><p>Loading teams...</p></div>;
-  if (error) return <div className="container mt-4"><p className="text-danger">Error: {error}</p></div>;
-
   return (
-    <div className="container mt-4">
-      <h2>Teams</h2>
-      {teams.length === 0 ? (
-        <p>No teams found.</p>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Team Name</th>
-                <th>Description</th>
-                <th>Members</th>
-              </tr>
-            </thead>
-            <tbody>
-              {teams.map((team) => (
-                <tr key={team.id}>
-                  <td>{team.id}</td>
-                  <td>{team.name}</td>
-                  <td>{team.description}</td>
-                  <td>{team.members_count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="container-fluid py-5">
+      <div className="container">
+        <div className="card shadow-lg">
+          <div className="card-header bg-info text-white">
+            <h2 className="card-title mb-0">
+              <i className="fas fa-users me-2"></i>Teams
+            </h2>
+          </div>
+          <div className="card-body">
+            {loading ? (
+              <div className="alert alert-info" role="alert">
+                <div className="spinner-border spinner-border-sm me-2" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Loading teams...
+              </div>
+            ) : error ? (
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Error</h4>
+                <p>{error}</p>
+                <button className="btn btn-sm btn-danger" onClick={fetchTeams}>
+                  Retry
+                </button>
+              </div>
+            ) : teams.length === 0 ? (
+              <div className="alert alert-warning" role="alert">
+                <h4 className="alert-heading">No Teams Found</h4>
+                <p>There are no teams to display at this time.</p>
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <table className="table table-hover table-bordered">
+                  <thead className="table-dark">
+                    <tr>
+                      <th scope="col" style={{width: '10%'}}>ID</th>
+                      <th scope="col" style={{width: '25%'}}>Team Name</th>
+                      <th scope="col" style={{width: '40%'}}>Description</th>
+                      <th scope="col" style={{width: '15%'}}>Members</th>
+                      <th scope="col" style={{width: '10%'}}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {teams.map((team) => (
+                      <tr key={team.id}>
+                        <td><span className="badge bg-secondary">{team.id}</span></td>
+                        <td><strong>{team.name}</strong></td>
+                        <td>{team.description}</td>
+                        <td><span className="badge bg-success">{team.members_count}</span></td>
+                        <td>
+                          <button className="btn btn-sm btn-primary" title="View Team">
+                            <i className="fas fa-eye"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

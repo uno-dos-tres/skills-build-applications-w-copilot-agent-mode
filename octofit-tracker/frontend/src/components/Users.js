@@ -38,40 +38,65 @@ const Users = () => {
     }
   };
 
-  if (loading) return <div className="container mt-4"><p>Loading users...</p></div>;
-  if (error) return <div className="container mt-4"><p className="text-danger">Error: {error}</p></div>;
-
   return (
-    <div className="container mt-4">
-      <h2>Users</h2>
-      {users.length === 0 ? (
-        <p>No users found.</p>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.first_name}</td>
-                  <td>{user.last_name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="container-fluid py-5">
+      <div className="container">
+        <div className="card shadow-lg">
+          <div className="card-header bg-warning text-dark">
+            <h2 className="card-title mb-0">
+              <i className="fas fa-user-circle me-2"></i>Users
+            </h2>
+          </div>
+          <div className="card-body">
+            {loading ? (
+              <div className="alert alert-info" role="alert">
+                <div className="spinner-border spinner-border-sm me-2" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Loading users...
+              </div>
+            ) : error ? (
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Error</h4>
+                <p>{error}</p>
+                <button className="btn btn-sm btn-danger" onClick={fetchUsers}>
+                  Retry
+                </button>
+              </div>
+            ) : users.length === 0 ? (
+              <div className="alert alert-warning" role="alert">
+                <h4 className="alert-heading">No Users Found</h4>
+                <p>There are no users to display at this time.</p>
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <table className="table table-hover table-bordered">
+                  <thead className="table-dark">
+                    <tr>
+                      <th scope="col" style={{width: '10%'}}>ID</th>
+                      <th scope="col" style={{width: '25%'}}>Username</th>
+                      <th scope="col" style={{width: '30%'}}>Email</th>
+                      <th scope="col" style={{width: '17%'}}>First Name</th>
+                      <th scope="col" style={{width: '18%'}}>Last Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {users.map((user) => (
+                      <tr key={user.id}>
+                        <td><span className="badge bg-secondary">{user.id}</span></td>
+                        <td><strong>{user.username}</strong></td>
+                        <td><a href={`mailto:${user.email}`}>{user.email}</a></td>
+                        <td>{user.first_name}</td>
+                        <td>{user.last_name}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

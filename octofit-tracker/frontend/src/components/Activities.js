@@ -38,40 +38,65 @@ const Activities = () => {
     }
   };
 
-  if (loading) return <div className="container mt-4"><p>Loading activities...</p></div>;
-  if (error) return <div className="container mt-4"><p className="text-danger">Error: {error}</p></div>;
-
   return (
-    <div className="container mt-4">
-      <h2>Activities</h2>
-      {activities.length === 0 ? (
-        <p>No activities found.</p>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>User</th>
-                <th>Activity Type</th>
-                <th>Duration</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {activities.map((activity) => (
-                <tr key={activity.id}>
-                  <td>{activity.id}</td>
-                  <td>{activity.user}</td>
-                  <td>{activity.activity_type}</td>
-                  <td>{activity.duration}</td>
-                  <td>{activity.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="container-fluid py-5">
+      <div className="container">
+        <div className="card shadow-lg">
+          <div className="card-header bg-primary text-white">
+            <h2 className="card-title mb-0">
+              <i className="fas fa-dumbbell me-2"></i>Activities
+            </h2>
+          </div>
+          <div className="card-body">
+            {loading ? (
+              <div className="alert alert-info" role="alert">
+                <div className="spinner-border spinner-border-sm me-2" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                Loading activities...
+              </div>
+            ) : error ? (
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Error</h4>
+                <p>{error}</p>
+                <button className="btn btn-sm btn-danger" onClick={fetchActivities}>
+                  Retry
+                </button>
+              </div>
+            ) : activities.length === 0 ? (
+              <div className="alert alert-warning" role="alert">
+                <h4 className="alert-heading">No Activities Found</h4>
+                <p>There are no activities to display at this time.</p>
+              </div>
+            ) : (
+              <div className="table-responsive">
+                <table className="table table-hover table-bordered">
+                  <thead className="table-dark">
+                    <tr>
+                      <th scope="col" style={{width: '10%'}}>ID</th>
+                      <th scope="col" style={{width: '20%'}}>User</th>
+                      <th scope="col" style={{width: '25%'}}>Activity Type</th>
+                      <th scope="col" style={{width: '20%'}}>Duration</th>
+                      <th scope="col" style={{width: '25%'}}>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {activities.map((activity) => (
+                      <tr key={activity.id}>
+                        <td><span className="badge bg-secondary">{activity.id}</span></td>
+                        <td>{activity.user}</td>
+                        <td><span className="badge bg-info">{activity.activity_type}</span></td>
+                        <td>{activity.duration}</td>
+                        <td>{new Date(activity.date).toLocaleDateString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
