@@ -18,7 +18,32 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-              <i className="fas fa-heart me-2"></i>OctoFit Tracker
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 200 200" 
+                className="me-2"
+                style={{height: '45px', width: 'auto', fill: '#00d4d4'}}
+              >
+                <circle cx="100" cy="100" r="95" fill="#0a2640" stroke="#00d4d4" strokeWidth="4"/>
+                <circle cx="100" cy="70" r="35" fill="#00d4d4"/>
+                <circle cx="85" cy="60" r="8" fill="#0a2640"/>
+                <circle cx="115" cy="60" r="8" fill="#0a2640"/>
+                <circle cx="87" cy="58" r="3" fill="#00d97e"/>
+                <circle cx="117" cy="58" r="3" fill="#00d97e"/>
+                <ellipse cx="100" cy="110" rx="28" ry="32" fill="#0066cc"/>
+                <path d="M 70 135 Q 55 150 60 170" stroke="#00d4d4" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                <path d="M 75 138 Q 60 160 70 180" stroke="#0066cc" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                <path d="M 130 135 Q 145 150 140 170" stroke="#00d4d4" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                <path d="M 125 138 Q 140 160 130 180" stroke="#0066cc" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                <path d="M 90 142 Q 85 165 90 185" stroke="#00d97e" strokeWidth="5" fill="none" strokeLinecap="round"/>
+                <path d="M 110 142 Q 115 165 110 185" stroke="#00d97e" strokeWidth="5" fill="none" strokeLinecap="round"/>
+                <path d="M 60 55 Q 50 50 45 60" stroke="#00d97e" strokeWidth="5" fill="none" strokeLinecap="round"/>
+                <circle cx="42" cy="70" r="8" fill="#00d97e" stroke="#006644" strokeWidth="2"/>
+                <path d="M 140 55 Q 150 50 155 60" stroke="#00d97e" strokeWidth="5" fill="none" strokeLinecap="round"/>
+                <circle cx="158" cy="70" r="8" fill="#00d97e" stroke="#006644" strokeWidth="2"/>
+                <path d="M 50 35 Q 100 10 150 35" stroke="#00d97e" strokeWidth="5" fill="none" strokeLinecap="round"/>
+              </svg>
+              OctoFit Tracker
             </Link>
             <button
               className="navbar-toggler"
