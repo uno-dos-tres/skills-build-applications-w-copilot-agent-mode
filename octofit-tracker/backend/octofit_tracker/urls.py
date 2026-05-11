@@ -15,7 +15,31 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import api_root
+
+import os
+from django.http import JsonResponse
+from django.urls import reverse
+
+# Helper to get the base URL using $CODESPACE_NAME
+def get_base_url(request):
+    codespace_name = os.environ.get('CODESPACE_NAME')
+    if codespace_name:
+        return f"https://{codespace_name}-8000.app.github.dev"
+    else:
+        scheme = request.scheme
+        host = request.get_host()
+        return f"{scheme}://{host}"
+
+# API root view with dynamic base URL
+def api_root(request):
+    base_url = get_base_url(request)
+    return JsonResponse({
+        'activities': f'{base_url}/api/activities/',
+        'users': f'{base_url}/api/users/',
+        'teams': f'{base_url}/api/teams/',
+        'leaderboard': f'{base_url}/api/leaderboard/',
+        'workouts': f'{base_url}/api/workouts/',
+    })
 
 urlpatterns = [
     path('admin/', admin.site.urls),
